@@ -1,12 +1,20 @@
 services:
   - type: web
-    name: myblog
+    name: django-blog
     env: python
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn myblog.wsgi:application"
-    staticPublishPath: staticfiles
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn Blog.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: Blog.settings
       - key: PYTHON_VERSION
-        value: "3.11"
+        value: 3.11
+      - key: SECRET_KEY
+        generateValue: true
+    staticPublishPaths:
+      - source: staticfiles
+        publishPath: /static
+      - source: media
+        publishPath: /media
