@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+  <!-- Tag Filter Title -->
+  {% if tag %}
+    <h2 class="tag-title">Posts tagged with "{{ tag.name }}"</h2>
+  {% endif %}
+
+  <!-- Tag Cloud - Show only first 4 tags -->
+  <div class="tag-cloud">
+    <strong>Tags:</strong>
+    {% for t in tags|slice:":4" %}
+      <a href="{% url 'myblog:post_list_by_tag' t.slug %}" class="tag">{{ t.name }}</a>
+    {% empty %}
+      <span>No tags yet.</span>
+    {% endfor %}
+
+    {% if tags|length > 4 %}
+      <a href="{% url 'myblog:tag_list' %}" class="tag-more-button">See More Tags</a>
+    {% endif %}
+  </div>
+
+  <!-- Post Grid -->
+  <div class="post-grid">
+    {% for post in posts %}
+      <article>
+        {% if post.image %}
+          <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+        <p>{{ post.body|truncatewords:30 }}</p>
+      </article>
+    {% empty %}
+      <p>No posts found.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">← Previous</a>
+      {% endif %}
+      <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next →</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

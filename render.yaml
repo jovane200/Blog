@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: myblog
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn myblog.wsgi:application"
+    staticPublishPath: staticfiles
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: Blog.settings
+      - key: PYTHON_VERSION
+        value: "3.11"

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <article>
+    <h2>{{ post.title }}</h2>
+    {% if post.image %}
+      <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    {% endif %}
+    <div>{{ post.body|linebreaks }}</div>
+
+    <p><a href="{% url 'myblog:post_list' %}">← Back to all posts</a></p>
+
+    <!-- Post Tags -->
+    <div class="post-tags tag-cloud">
+      <strong>Tags:</strong>
+      {% for tag in post.tags.all %}
+        <a href="{% url 'myblog:post_list_by_tag' tag.slug %}" class="tag">{{ tag.name }}</a>
+      {% empty %}
+        <span>No tags.</span>
+      {% endfor %}
+
+        <!-- Social Share Buttons -->
+    <div class="share-buttons">
+        <p>Share this post:</p>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" title="Share on Facebook" class="share-icon facebook">
+            <!-- Facebook SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07C2 17.1 5.66 21.2 10.44 22v-7.02h-3.1v-2.9h3.1V9.41c0-3.07 1.83-4.77 4.64-4.77 1.34 0 2.75.24 2.75.24v3.04h-1.55c-1.53 0-2.01.95-2.01 1.92v2.31h3.41l-.55 2.9h-2.86V22C18.34 21.2 22 17.1 22 12.07z"/></svg>
+        </a>
+
+        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}" target="_blank" title="Share on X" class="share-icon x">
+            <!-- X (Twitter) SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.8 3H23L15 10.72 24 21h-7.2l-5.6-6.64L5.2 21H2L10.5 12 1 3h7.4l5 5.92L19.8 3Z"/></svg>
+        </a>
+
+        <a href="https://api.whatsapp.com/send?text={{ post.title }} {{ request.build_absolute_uri }}" target="_blank" title="Share on WhatsApp" class="share-icon whatsapp">
+            <!-- WhatsApp SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.3 2 11.3c0 2.01.76 3.86 2 5.33L2 22l5.56-1.46C9.17 21.12 10.55 21.6 12 21.6c5.52 0 10-4.3 10-9.3S17.52 2 12 2zm0 17.4c-1.21 0-2.37-.33-3.36-.93l-.24-.15-3.3.87.88-3.17-.16-.25a7.18 7.18 0 01-1.2-3.96c0-4 3.43-7.3 7.6-7.3s7.6 3.3 7.6 7.3-3.43 7.3-7.6 7.3zm4.16-5.6c-.23-.12-1.35-.66-1.56-.74s-.36-.12-.5.12-.58.74-.72.89-.26.17-.48.06a6.25 6.25 0 01-1.83-1.63 6.85 6.85 0 01-1.27-2.1c-.06-.16 0-.34.1-.46s.23-.26.34-.4c.1-.14.14-.23.2-.37.06-.12.03-.27-.01-.38-.05-.12-.5-1.2-.69-1.63-.18-.42-.36-.36-.5-.37h-.42c-.12 0-.31.04-.47.23s-.62.6-.62 1.46.64 1.69.72 1.8c.09.12 1.26 1.95 3.04 2.73 1.78.78 1.78.52 2.1.48.32-.04 1.04-.41 1.18-.8.14-.39.14-.73.1-.8-.03-.06-.2-.1-.42-.2z"/></svg>
+        </a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank" title="Share on LinkedIn" class="share-icon linkedin">
+            <!-- LinkedIn SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.6V15c0-1.3-.02-2.96-1.8-2.96s-2.07 1.4-2.07 2.85v5.56h-3.6V9h3.45v1.56h.05c.48-.9 1.64-1.84 3.38-1.84 3.61 0 4.28 2.37 4.28 5.45v6.28zM5.34 7.43a2.08 2.08 0 110-4.17 2.08 2.08 0 010 4.17zM7.13 20.45H3.56V9h3.57v11.45zM22.22 0H1.78C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.78 24h20.44c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
+        </a>
+    </div>
+
+    </div>
+  </article>
+
+  <!-- Comments -->
+  <div class="comments">
+    <h3>Comments</h3>
+    {% for comment in comments %}
+      <div class="comment">
+        <strong>{{ comment.name }}</strong>
+        <small>{{ comment.created|date:"F j, Y H:i" }}</small>
+        <p>{{ comment.body|linebreaks }}</p>
+      </div>
+    {% empty %}
+      <p>No comments yet.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Comment Form -->
+  <div class="comment-form">
+    <h3>Leave a Comment</h3>
+    {% if new_comment %}
+      <p><strong>Your comment has been posted.</strong></p>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

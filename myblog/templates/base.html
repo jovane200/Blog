@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="{% url 'myblog:post_list' %}">My Personal Blog</a></h1>
+            <form method="get" action="{% url 'myblog:post_search' %}" class="search-form">
+                <input type="text" name="q" placeholder="Search posts..." required>
+                <button type="submit">Search</button>
+            </form>
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+</body>
+</html>

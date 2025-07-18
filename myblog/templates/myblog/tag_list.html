@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2 class="tag-title">All Tags</h2>
+  <div class="tag-cloud">
+    {% for t in tags %}
+      <a href="{% url 'myblog:post_list_by_tag' t.slug %}" class="tag">{{ t.name }}</a>
+    {% empty %}
+      <p>No tags found.</p>
+    {% endfor %}
+  </div>
+
+  <p><a href="{% url 'myblog:post_list' %}">← Back to all posts</a></p>
+</div>
+{% endblock %}
