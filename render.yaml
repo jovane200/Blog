@@ -14,11 +14,11 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: CLOUDINARY_CLOUD_NAME
-        value: dbsbybwmc
+        sync: false
       - key: CLOUDINARY_API_KEY
-        value: 363663195651477
+        sync: false
       - key: CLOUDINARY_API_SECRET
-        value: QY4wbW1IgzgbUPjKTl85NscfmPw
+        sync: false
     staticPublishPaths:
       - source: staticfiles
         publishPath: /static
