@@ -16,5 +16,5 @@ services:
     staticPublishPaths:
       - source: staticfiles
         publishPath: /static
-      - source: myblog/blog_images
-        publishPath: /media/blog_images
+      - source: media
+        publishPath: /media
