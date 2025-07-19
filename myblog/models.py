@@ -38,7 +38,7 @@ class Post(models.Model):
     objects = models.Manager() # The default manager.
     published = PublishedManager() # Our custom manager.
     tags = TaggableManager() # to use tags for posts
-    image = models.ImageField(upload_to='blog_images/',blank=True,null=True)
+    image = models.ImageField(upload_to='blog_images',blank=True,null=True)
 
     class Meta:
         ordering = ['-publish']
