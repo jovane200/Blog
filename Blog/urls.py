@@ -24,6 +24,6 @@ from myblog.admin import admin_site
 urlpatterns = [
     path('admin/', admin_site.urls),
     path('',include('myblog.urls',namespace='myblog')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
