@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','unsafe-default-for-dev-only')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['blog-t8gj.onrender.com']
 
 
 # Application definition
