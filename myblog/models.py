@@ -4,6 +4,8 @@ from django.utils.text import slugify
 from django.conf import settings
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from cloudinary.models import CloudinaryField
+
 
 # Create your models here.
 
@@ -38,7 +40,7 @@ class Post(models.Model):
     objects = models.Manager() # The default manager.
     published = PublishedManager() # Our custom manager.
     tags = TaggableManager() # to use tags for posts
-    image = models.ImageField(upload_to='blog_images/',blank=True,null=True)
+    image = CloudinaryField('image', blank=True, null=True)
 
     class Meta:
         ordering = ['-publish']
