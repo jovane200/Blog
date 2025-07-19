@@ -1,6 +1,7 @@
 from django.contrib.admin import AdminSite
 from django.contrib import admin
 from .models import Post, Comment
+from taggit.models import Tag
 
 class MyAdminSite(AdminSite):
     site_header = "My Blog Admin"
@@ -29,6 +30,10 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ('active', 'created')
     search_fields = ('name', 'email', 'body')
 
+class TagAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
 # Register models
 admin_site.register(Post, PostAdmin)
 admin_site.register(Comment, CommentAdmin)
+admin_site.register(Tag,TagAdmin)
