@@ -4,7 +4,6 @@ services:
     env: python
     buildCommand: |
       pip install -r requirements.txt
-      mkdir -p media
       python manage.py collectstatic --noinput
     startCommand: gunicorn Blog.wsgi:application
     envVars:
@@ -17,5 +16,5 @@ services:
     staticPublishPaths:
       - source: staticfiles
         publishPath: /static
-      - source: media
-        publishPath: /media
+      - source: myblog/blog_images
+        publishPath: /media/blog_images
