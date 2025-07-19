@@ -13,8 +13,12 @@ services:
         value: 3.11
       - key: SECRET_KEY
         generateValue: true
+      - key: CLOUDINARY_CLOUD_NAME
+        value: your_cloud_name
+      - key: CLOUDINARY_API_KEY
+        value: your_api_key
+      - key: CLOUDINARY_API_SECRET
+        value: your_api_secret
     staticPublishPaths:
       - source: staticfiles
         publishPath: /static
-      - source: media
-        publishPath: /media
