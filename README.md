@@ -127,10 +127,6 @@ Blog/
 
 ---
 
-## 🖼️ Admin Preview
-
-![Admin login](preview/admin-login.png)  
-![Post admin](preview/admin-posts.png)
 
 ---
 
