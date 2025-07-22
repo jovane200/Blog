@@ -144,7 +144,7 @@ Blog/
 
 ## 📜 License
 
-This project can be used for personal or commercial use.
+This project can be used for personal use.
 Attribution appreciated but not required.
 
 ---
